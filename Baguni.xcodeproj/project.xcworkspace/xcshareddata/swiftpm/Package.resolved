@@ -9,15 +9,6 @@
           "revision": "a2144ddaa7c43a6ee00873edd4cc7815ad97942f",
           "version": "1.0.7"
         }
-      },
-      {
-        "package": "GoogleMaps",
-        "repositoryURL": "https://github.com/YAtechnologies/GoogleMaps-SP",
-        "state": {
-          "branch": null,
-          "revision": "68d9f01a1ffede0bdd58834923852fbedf013ab2",
-          "version": "4.2.0"
-        }
       }
     ]
   },

@@ -16,6 +16,7 @@
 		E21A2027264ACAEB0055FBCA /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21A2026264ACAEB0055FBCA /* LocationManager.swift */; };
 		E21A202A264AEAF90055FBCA /* Landmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21A2029264AEAF90055FBCA /* Landmark.swift */; };
 		E21A202C264AEB890055FBCA /* LandmarkAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21A202B264AEB890055FBCA /* LandmarkAnnotation.swift */; };
+		E21A202E264AF8540055FBCA /* PlaceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21A202D264AF8540055FBCA /* PlaceListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		E21A2026264ACAEB0055FBCA /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E21A2029264AEAF90055FBCA /* Landmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmark.swift; sourceTree = "<group>"; };
 		E21A202B264AEB890055FBCA /* LandmarkAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkAnnotation.swift; sourceTree = "<group>"; };
+		E21A202D264AF8540055FBCA /* PlaceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				E21A2023264AC8A90055FBCA /* MapView.swift */,
+				E21A202D264AF8540055FBCA /* PlaceListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 				B37FCD25263BD6C200BB8837 /* ContentView.swift in Sources */,
 				E21A202C264AEB890055FBCA /* LandmarkAnnotation.swift in Sources */,
 				E21A2024264AC8A90055FBCA /* MapView.swift in Sources */,
+				E21A202E264AF8540055FBCA /* PlaceListView.swift in Sources */,
 				B37FCD23263BD6C200BB8837 /* BaguniApp.swift in Sources */,
 				E21A202A264AEAF90055FBCA /* Landmark.swift in Sources */,
 			);
@@ -317,7 +321,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Baguni/Preview Content\"";
-				DEVELOPMENT_TEAM = 7C6DA5C6X8;
+				DEVELOPMENT_TEAM = PCJ686F4KQ;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Baguni/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -325,7 +329,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.DamaTeam.Baguni;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DamajoTeam.Baguni;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
