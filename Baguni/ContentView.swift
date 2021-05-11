@@ -1,7 +1,6 @@
 //
 //  ContentView.swift
 //  Baguni
-//
 //  Created by 구민영 on 2021/04/30.
 //
 
