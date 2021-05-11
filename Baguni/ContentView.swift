@@ -68,7 +68,7 @@ struct MainView: View {
         }
         .frame(minWidth: 0, idealWidth: 100, maxWidth: .infinity, minHeight: 0, idealHeight: 100, maxHeight: .infinity, alignment: .center)
         .padding(.bottom, 80)
-        .background(Image("Home_page-01-1").resizable())
+        .background(Image("HomePageForExample").resizable())
         .edgesIgnoringSafeArea(.all)
     }
     
@@ -92,7 +92,7 @@ struct QRCodeScannerExampleView: View {
             TabView() {
                 MainView()
                     .tabItem {
-                        /*@START_MENU_TOKEN@*/Text("Tab Label 1")/*@END_MENU_TOKEN@*/
+                        Text("Home")
                     }.tag(1)
                 Text("Tab Content 2")
                     .tabItem {
@@ -101,11 +101,95 @@ struct QRCodeScannerExampleView: View {
                     }.tag(2)
                 Text("Tab Content 3")
                     .tabItem {
-                        Text("Tab Label 3")
+                        Text("Location")
                     }.tag(3)
+                PaymentView()
+                    .tabItem {
+                        Text("Payment")
+                    }
+                
+                
             }
         }
     }
+}
+
+struct PaymentView: View {
+        
+        let BankName = "카드이름:"
+        let BankNum = "카드번호:"
+        let BankBal = "잔액:"
+        
+        @State var CName = "Kb Card"
+        @State var CNumber = "**** 1234 5678"
+        @State var CBalance = "$ 141,039"
+        
+        @State private var isCliked : Bool = false
+        var body: some View {
+            NavigationView{
+                GeometryReader {
+                    geometry in
+                    ZStack{
+                        Image("HomePageForExample")
+                            .resizable()
+                            .ignoresSafeArea()
+
+                        VStack{
+
+                            Button(action: {
+                                self.animation()
+                                CName = "Kb Card"
+                                CNumber = "**** 1234 5678"
+                                CBalance = "$ 141,039"
+
+                            }, label: {
+                                Image(isCliked ? "Card_1" : "Card_2")
+                                    .resizable()
+                                    .padding(.bottom, 0.0)
+                                    .frame(width: 300, height: 200)
+                                    .position(x: 200, y: 200)
+                                    .offset(x: 0, y: isCliked ? 91 : 0)
+                            })
+                            
+                            Button(action: {
+                                self.animation()
+                                CName = "Shinhan Card"
+                                CNumber = "**** 4321 8765"
+                                CBalance = "$ 212,928"
+                            }, label: {
+                                Image(isCliked ? "Card_2" : "Card_1")
+                                    .resizable()
+                                    .frame(width: 300, height: 200)
+                                    .position(x: 200, y: 10)
+        //                            .rotation3DEffect(
+        //                                isCliked ? .degrees(360) : .degrees(0),
+        //                                axis: (x : 1.0, y : 1.0, z : 1.0)
+        //                            )
+                                    .offset(x: 0, y: isCliked ? -91 : 0)
+                                    
+
+                            })
+                            HStack{
+                                Text(BankName)
+                                Text(CName)
+                            }
+                            HStack{
+                                Text(BankNum)
+                                Text(CNumber)
+                            }
+                            HStack{
+                                Text(BankBal)
+                                Text(CBalance)
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Payment")
+        }
+        func animation(){
+            self.isCliked.toggle()
+        }
 }
 
 struct ContentView_Previews: PreviewProvider {
