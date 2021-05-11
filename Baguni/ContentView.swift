@@ -93,24 +93,25 @@ struct QRCodeScannerExampleView: View {
             TabView() {
                 MainView()
                     .tabItem {
+                        Image(systemName: "house")
                         Text("Home")
                     }.tag(1)
                 Text("Tab Content 2")
                     .tabItem {
-                        Image(systemName: "cart")
+                        Image(systemName: "cart.badge.plus")
                         Text("scan")
                     }.tag(2)
                 LocationView()
                     .tabItem {
+                        Image(systemName: "paperplane.circle")
                         Text("Map")
                     }.tag(3)
                 PaymentView()
                     .tabItem {
+                        Image(systemName: "creditcard.fill")
                         Text("Payment")
-                    }
-                
-                
-            }
+                    }.tag(4)
+            }.accentColor(.orange)
         }
     }
 }
