@@ -12,6 +12,10 @@
 		B37FCD27263BD6CA00BB8837 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B37FCD26263BD6CA00BB8837 /* Assets.xcassets */; };
 		B37FCD2A263BD6CA00BB8837 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B37FCD29263BD6CA00BB8837 /* Preview Assets.xcassets */; };
 		B37FCD35263BDA7300BB8837 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = B37FCD34263BDA7300BB8837 /* CodeScanner */; };
+		E21A2024264AC8A90055FBCA /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21A2023264AC8A90055FBCA /* MapView.swift */; };
+		E21A2027264ACAEB0055FBCA /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21A2026264ACAEB0055FBCA /* LocationManager.swift */; };
+		E21A202A264AEAF90055FBCA /* Landmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21A2029264AEAF90055FBCA /* Landmark.swift */; };
+		E21A202C264AEB890055FBCA /* LandmarkAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21A202B264AEB890055FBCA /* LandmarkAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +25,10 @@
 		B37FCD26263BD6CA00BB8837 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B37FCD29263BD6CA00BB8837 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B37FCD2B263BD6CA00BB8837 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E21A2023264AC8A90055FBCA /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		E21A2026264ACAEB0055FBCA /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		E21A2029264AEAF90055FBCA /* Landmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmark.swift; sourceTree = "<group>"; };
+		E21A202B264AEB890055FBCA /* LandmarkAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +62,9 @@
 		B37FCD21263BD6C200BB8837 /* Baguni */ = {
 			isa = PBXGroup;
 			children = (
+				E21A2028264AEAEC0055FBCA /* Models */,
+				E21A2025264ACAD90055FBCA /* Managers */,
+				E21A2022264AC88D0055FBCA /* Views */,
 				B37FCD22263BD6C200BB8837 /* BaguniApp.swift */,
 				B37FCD24263BD6C200BB8837 /* ContentView.swift */,
 				B37FCD26263BD6CA00BB8837 /* Assets.xcassets */,
@@ -69,6 +80,31 @@
 				B37FCD29263BD6CA00BB8837 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E21A2022264AC88D0055FBCA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E21A2023264AC8A90055FBCA /* MapView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E21A2025264ACAD90055FBCA /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				E21A2026264ACAEB0055FBCA /* LocationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		E21A2028264AEAEC0055FBCA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E21A2029264AEAF90055FBCA /* Landmark.swift */,
+				E21A202B264AEB890055FBCA /* LandmarkAnnotation.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,8 +182,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E21A2027264ACAEB0055FBCA /* LocationManager.swift in Sources */,
 				B37FCD25263BD6C200BB8837 /* ContentView.swift in Sources */,
+				E21A202C264AEB890055FBCA /* LandmarkAnnotation.swift in Sources */,
+				E21A2024264AC8A90055FBCA /* MapView.swift in Sources */,
 				B37FCD23263BD6C200BB8837 /* BaguniApp.swift in Sources */,
+				E21A202A264AEAF90055FBCA /* Landmark.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,7 +317,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Baguni/Preview Content\"";
-				DEVELOPMENT_TEAM = 7C6DA5C6X8;
+				DEVELOPMENT_TEAM = PCJ686F4KQ;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Baguni/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -285,7 +325,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.damateam.Baguni;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DamajoTeam.Baguni;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -299,7 +339,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Baguni/Preview Content\"";
-				DEVELOPMENT_TEAM = 7C6DA5C6X8;
+				DEVELOPMENT_TEAM = PCJ686F4KQ;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Baguni/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -307,7 +347,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.damateam.Baguni;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DamajoTeam.Baguni;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
