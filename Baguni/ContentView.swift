@@ -44,6 +44,81 @@ import MapKit
 //}
 
 struct MainView: View {
+    
+    let BankName = "카드이름:"
+    let BankNum = "카드번호:"
+    let BankBal = "잔액:"
+    
+    @State var CName = "Kb Card"
+    @State var CNumber = "**** 1234 5678"
+    @State var CBalance = "$ 141,039"
+    
+    @State private var isCliked : Bool = false
+    var body: some View {
+        NavigationView{
+            GeometryReader {
+                geometry in
+                ZStack{
+                    Image("HomePageForExample")
+                        .resizable()
+                        .ignoresSafeArea()
+                    
+                    VStack{
+                        
+                        Button(action: {
+                            self.animation()
+  
+                            
+                        }, label: {
+                            Image(isCliked ? "" : "")
+                                .resizable()
+                                .padding(.bottom, 0.0)
+                                .frame(width: 300, height: 200)
+                                .position(x: 200, y: 200)
+                                .offset(x: 0, y: isCliked ? 91 : 0)
+                        })
+                        
+                        Button(action: {
+                            self.animation()
+
+                        }, label: {
+                            Image(isCliked ? "" : "")
+                                .resizable()
+                                .frame(width: 300, height: 200)
+                                .position(x: 200, y: 10)
+                                //                            .rotation3DEffect(
+                                //                                isCliked ? .degrees(360) : .degrees(0),
+                                //                                axis: (x : 1.0, y : 1.0, z : 1.0)
+                                //                            )
+                                .offset(x: 0, y: isCliked ? -91 : 0)
+                            
+                            
+                        })
+                        HStack{
+                            Text("")
+                            Text("")
+                        }
+                        HStack{
+                            Text("")
+                            Text("")
+                        }
+                        HStack{
+                            Text("")
+                            Text("")
+                        }
+                    }
+                }
+            }
+        }
+        .navigationTitle("Payment")
+    }
+    func animation(){
+        self.isCliked.toggle()
+    }
+}
+
+
+struct ScanView: View {
     @State var isPresentingScanner = false
     @State var scannedCode: String?
     
@@ -53,17 +128,18 @@ struct MainView: View {
             if self.scannedCode != nil {
                 Text("\(self.scannedCode!)")
             }
+            
             Button(action: {
                 self.isPresentingScanner = true
             }) {
-                Image("scan")
+                Image(systemName: "camera.fill")
                     .resizable()
-                    .frame(width: 30, height: 30, alignment: .center)
-            }
-            .frame(width: 50, height: 50, alignment: .center)
-            .background(Color.red).clipShape(Circle())
-            .sheet(isPresented: $isPresentingScanner) {
-                self.scannerSheet
+                    .frame(width: 130, height: 100, alignment: .center)
+                    .offset(y:-30)
+                    .sheet(isPresented: $isPresentingScanner) {
+                        self.scannerSheet
+
+                    }
             }
         }
         .frame(minWidth: 0, idealWidth: 100, maxWidth: .infinity, minHeight: 0, idealHeight: 100, maxHeight: .infinity, alignment: .center)
@@ -71,7 +147,7 @@ struct MainView: View {
         .background(Image("HomePageForExample").resizable())
         .edgesIgnoringSafeArea(.all)
     }
-    
+
     var scannerSheet : some View {
         CodeScannerView(
             codeTypes: [.qr],
@@ -84,6 +160,7 @@ struct MainView: View {
         )
     }
 }
+    
 
 
 struct QRCodeScannerExampleView: View {
@@ -96,7 +173,7 @@ struct QRCodeScannerExampleView: View {
                         Image(systemName: "house")
                         Text("Home")
                     }.tag(1)
-                Text("Tab Content 2")
+                ScanView()
                     .tabItem {
                         Image(systemName: "cart.badge.plus")
                         Text("scan")
