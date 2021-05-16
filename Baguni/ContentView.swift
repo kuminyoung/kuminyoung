@@ -9,21 +9,21 @@ import CodeScanner
 import MapKit
 
 //struct NextView: View {
-//    @State var scannedCode: String = ""
+//    @State var scannedCodes: String = ""
 //
 //    var body: some View {
-//       Text("\(scannedCode)")
+//       Text("\(scannedCodes)")
 //    }
 //}
 //
 //struct SecondView: View {
 //    @State var isPresentingScanner = false
-//    @State var scannedCode: String?
+//    @State var scannedCodes: String?
 //    @State var state = true;
 //
 //    var body: some View {
-//        if self.scannedCode != nil {
-//            Text("\(self.scannedCode!)")
+//        if self.scannedCodes != nil {
+//            Text("\(self.scannedCodes!)")
 //        }
 //        Text("").sheet(isPresented: $state, content: {
 //            self.scannerSheet
@@ -35,7 +35,7 @@ import MapKit
 //            codeTypes: [.qr],
 //            completion: { result in
 //                if case let .success(code) = result {
-//                    self.scannedCode = code
+//                    self.scannedCodes = code
 //                    self.isPresentingScanner = false
 //                }
 //            }
@@ -120,13 +120,13 @@ struct MainView: View {
 
 struct ScanView: View {
     @State var isPresentingScanner = false
-    @State var scannedCode: String?
+    @State var scannedCodes: [String] = []
     
     var body: some View {
         VStack() {
             Spacer()
-            if self.scannedCode != nil {
-                Text("\(self.scannedCode!)")
+            ForEach(self.scannedCodes, id: \.self) { scannedCode in
+                Text("\(scannedCode)")
             }
             
             Button(action: {
@@ -153,7 +153,7 @@ struct ScanView: View {
             codeTypes: [.qr],
             completion: { result in
                 if case let .success(code) = result {
-                    self.scannedCode = code
+                    self.scannedCodes.append(code)
                     self.isPresentingScanner = false
                 }
             }
