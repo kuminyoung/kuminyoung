@@ -12,6 +12,13 @@
 		B37FCD27263BD6CA00BB8837 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B37FCD26263BD6CA00BB8837 /* Assets.xcassets */; };
 		B37FCD2A263BD6CA00BB8837 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B37FCD29263BD6CA00BB8837 /* Preview Assets.xcassets */; };
 		B37FCD35263BDA7300BB8837 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = B37FCD34263BDA7300BB8837 /* CodeScanner */; };
+		E2147E4D2658B613003720F7 /* CardModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2147E4C2658B613003720F7 /* CardModels.swift */; };
+		E2147E4F2658B714003720F7 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2147E4E2658B714003720F7 /* Data.swift */; };
+		E2147E512658DB22003720F7 /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2147E502658DB22003720F7 /* ColorConstants.swift */; };
+		E2147E532658DEB7003720F7 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2147E522658DEB7003720F7 /* PagerView.swift */; };
+		E2147E552658E3B0003720F7 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2147E542658E3B0003720F7 /* CardView.swift */; };
+		E2147E572658F012003720F7 /* MenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2147E562658F012003720F7 /* MenuHeaderView.swift */; };
+		E2147E59265927F4003720F7 /* CardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2147E58265927F4003720F7 /* CardManager.swift */; };
 		E21A2024264AC8A90055FBCA /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21A2023264AC8A90055FBCA /* MapView.swift */; };
 		E21A2027264ACAEB0055FBCA /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21A2026264ACAEB0055FBCA /* LocationManager.swift */; };
 		E21A202A264AEAF90055FBCA /* Landmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21A2029264AEAF90055FBCA /* Landmark.swift */; };
@@ -26,6 +33,13 @@
 		B37FCD26263BD6CA00BB8837 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B37FCD29263BD6CA00BB8837 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B37FCD2B263BD6CA00BB8837 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E2147E4C2658B613003720F7 /* CardModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModels.swift; sourceTree = "<group>"; };
+		E2147E4E2658B714003720F7 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		E2147E502658DB22003720F7 /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
+		E2147E522658DEB7003720F7 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
+		E2147E542658E3B0003720F7 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		E2147E562658F012003720F7 /* MenuHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderView.swift; sourceTree = "<group>"; };
+		E2147E58265927F4003720F7 /* CardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardManager.swift; sourceTree = "<group>"; };
 		E21A2023264AC8A90055FBCA /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		E21A2026264ACAEB0055FBCA /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E21A2029264AEAF90055FBCA /* Landmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmark.swift; sourceTree = "<group>"; };
@@ -64,6 +78,7 @@
 		B37FCD21263BD6C200BB8837 /* Baguni */ = {
 			isa = PBXGroup;
 			children = (
+				E2147E492658AAA6003720F7 /* Data */,
 				E21A2028264AEAEC0055FBCA /* Models */,
 				E21A2025264ACAD90055FBCA /* Managers */,
 				E21A2022264AC88D0055FBCA /* Views */,
@@ -84,11 +99,23 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		E2147E492658AAA6003720F7 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E2147E4E2658B714003720F7 /* Data.swift */,
+				E2147E502658DB22003720F7 /* ColorConstants.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		E21A2022264AC88D0055FBCA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E2147E542658E3B0003720F7 /* CardView.swift */,
 				E21A2023264AC8A90055FBCA /* MapView.swift */,
 				E21A202D264AF8540055FBCA /* PlaceListView.swift */,
+				E2147E522658DEB7003720F7 /* PagerView.swift */,
+				E2147E562658F012003720F7 /* MenuHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -97,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				E21A2026264ACAEB0055FBCA /* LocationManager.swift */,
+				E2147E58265927F4003720F7 /* CardManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -106,6 +134,7 @@
 			children = (
 				E21A2029264AEAF90055FBCA /* Landmark.swift */,
 				E21A202B264AEB890055FBCA /* LandmarkAnnotation.swift */,
+				E2147E4C2658B613003720F7 /* CardModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -186,11 +215,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				E21A2027264ACAEB0055FBCA /* LocationManager.swift in Sources */,
+				E2147E532658DEB7003720F7 /* PagerView.swift in Sources */,
+				E2147E4D2658B613003720F7 /* CardModels.swift in Sources */,
+				E2147E59265927F4003720F7 /* CardManager.swift in Sources */,
 				B37FCD25263BD6C200BB8837 /* ContentView.swift in Sources */,
+				E2147E512658DB22003720F7 /* ColorConstants.swift in Sources */,
 				E21A202C264AEB890055FBCA /* LandmarkAnnotation.swift in Sources */,
 				E21A2024264AC8A90055FBCA /* MapView.swift in Sources */,
+				E2147E572658F012003720F7 /* MenuHeaderView.swift in Sources */,
 				E21A202E264AF8540055FBCA /* PlaceListView.swift in Sources */,
 				B37FCD23263BD6C200BB8837 /* BaguniApp.swift in Sources */,
+				E2147E4F2658B714003720F7 /* Data.swift in Sources */,
+				E2147E552658E3B0003720F7 /* CardView.swift in Sources */,
 				E21A202A264AEAF90055FBCA /* Landmark.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -134,12 +134,11 @@ struct ScanView: View {
             }) {
                 Image(systemName: "camera.fill")
                     .resizable()
-                    .frame(width: 130, height: 100, alignment: .center)
-                    .offset(y:-30)
-                    .sheet(isPresented: $isPresentingScanner) {
-                        self.scannerSheet
-
                     }
+            .frame(width: 45, height: 35, alignment: .center)
+            .offset(y:-40)
+            .sheet(isPresented: $isPresentingScanner) {
+                self.scannerSheet
             }
         }
         .frame(minWidth: 0, idealWidth: 100, maxWidth: .infinity, minHeight: 0, idealHeight: 100, maxHeight: .infinity, alignment: .center)
@@ -255,81 +254,75 @@ struct LocationView: View {
 
 struct PaymentView: View {
     
-    let BankName = "카드이름:"
-    let BankNum = "카드번호:"
-    let BankBal = "잔액:"
-    
-    @State var CName = "Kb Card"
-    @State var CNumber = "**** 1234 5678"
-    @State var CBalance = "$ 141,039"
-    
-    @State private var isCliked : Bool = false
+    @ObservedObject var cardManager = CardManager()
+    @State private var currentPage = 0
     var body: some View {
-        NavigationView{
-            GeometryReader {
-                geometry in
-                ZStack{
-                    Image("HomePageForExample")
-                        .resizable()
-                        .ignoresSafeArea()
-                    
-                    VStack{
-                        
-                        Button(action: {
-                            self.animation()
-                            CName = "Kb Card"
-                            CNumber = "**** 1234 5678"
-                            CBalance = "$ 141,039"
-                            
-                        }, label: {
-                            Image(isCliked ? "Card_1" : "Card_2")
-                                .resizable()
-                                .padding(.bottom, 0.0)
-                                .frame(width: 300, height: 200)
-                                .position(x: 200, y: 200)
-                                .offset(x: 0, y: isCliked ? 91 : 0)
-                        })
-                        
-                        Button(action: {
-                            self.animation()
-                            CName = "Shinhan Card"
-                            CNumber = "**** 4321 8765"
-                            CBalance = "$ 212,928"
-                        }, label: {
-                            Image(isCliked ? "Card_2" : "Card_1")
-                                .resizable()
-                                .frame(width: 300, height: 200)
-                                .position(x: 200, y: 10)
-                                //                            .rotation3DEffect(
-                                //                                isCliked ? .degrees(360) : .degrees(0),
-                                //                                axis: (x : 1.0, y : 1.0, z : 1.0)
-                                //                            )
-                                .offset(x: 0, y: isCliked ? -91 : 0)
-                            
-                            
-                        })
-                        HStack{
-                            Text(BankName)
-                            Text(CName)
-                        }
-                        HStack{
-                            Text(BankNum)
-                            Text(CNumber)
-                        }
-                        HStack{
-                            Text(BankBal)
-                            Text(CBalance)
-                        }
+        
+        ZStack {
+            Rectangle()
+                .fill(ColorConstants.primary)
+            
+            VStack {
+                PagerView(pageCount: cards.count, currentIndex: $currentPage) {
+                    ForEach(cards) { card in
+                        CardView(card: card)
                     }
+                }
+                .frame(height: 240)
+                .padding(.top, 120)
+                
+                MenuHeaderView(title: "Purchase History", imageName: "chevron.down")
+                
+                TransactionListView(currentIndex: $currentPage, cardManager: cardManager)
+                
+                Spacer()
+            }
+        }
+        .edgesIgnoringSafeArea(.all)
+
+    }
+}
+
+struct TransactionListView: View {
+    @Binding var currentIndex: Int
+    @ObservedObject var cardManager: CardManager
+    var body: some View {
+        ScrollView {
+            LazyVStack {
+                ForEach(getListHeaders(), id: \.self) { date in
+                    ListHeader(title: cardManager.getModifiedDate(date: date))
+                    
                 }
             }
         }
-        .navigationTitle("Payment")
     }
-    func animation(){
-        self.isCliked.toggle()
+    
+    func getListHeaders() -> [String] {
+        return cardManager.getUniqueDates(for: cards[currentIndex].number)
     }
 }
+
+struct ListHeader: View {
+    let title: String
+    var body: some View {
+        HStack {
+            Text(title)
+                .font(.caption)
+                .foregroundColor(ColorConstants.secondary)
+                .padding(.leading, 20)
+            Spacer()
+        }
+    }
+}
+
+struct TransactionListRow: View {
+    var body: some View {
+        VStack {
+            
+        }
+    }
+}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
