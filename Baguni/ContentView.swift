@@ -51,13 +51,7 @@ struct MainView: View {
                                 .resizable()
                                 .frame(width: 300, height: 200)
                                 .position(x: 200, y: 10)
-                                //                            .rotation3DEffect(
-                                //                                isCliked ? .degrees(360) : .degrees(0),
-                                //                                axis: (x : 1.0, y : 1.0, z : 1.0)
-                                //                            )
                                 .offset(x: 0, y: isCliked ? -91 : 0)
-                            
-                            
                         })
                         HStack{
                             Text("")
@@ -85,39 +79,40 @@ struct MainView: View {
 
 struct ScanView: View {
     @State var isPresentingScanner = false
-    @State var scannedCodes: [String] = []
-    
-    var purchaseToList: [Purchase]
+    @State var scannedCodes: [Purchase] = []
     
     var body: some View {
-        NavigationView{
-            List(purchaseToList){
-                product in ListRow(eachPurchase: product)
-            }.navigationBarTitle(Text("담은 상품"))
-        }
         VStack() {
-            Spacer()
-            ForEach(self.scannedCodes, id: \.self) { scannedCode in
-                Text("\(scannedCode)")
-            }
-            
-            Button(action: {
-                self.isPresentingScanner = true
-            }) {
-                Image(systemName: "camera.fill")
-                    .resizable()
+            VStack {
+                VStack {
+                    NavigationView{
+                        List(scannedCodes){
+                            product in ListRow(eachPurchase: product)
+                        }.navigationBarTitle(Text("담은 상품"))
                     }
-            .frame(width: 45, height: 35, alignment: .center)
-            .offset(y:-40)
-            .sheet(isPresented: $isPresentingScanner) {
-                self.scannerSheet
+                }
+                Button(action: {
+                    self.isPresentingScanner = true
+                }) {
+                    Image(systemName: "camera.fill").resizable()
+                }
+                .frame(width: 45, height: 35, alignment: .center)
+                .sheet(isPresented: $isPresentingScanner) {
+                    self.scannerSheet
+                }
             }
+            .frame(
+                minWidth: 0,
+                idealWidth: 100,
+                maxWidth: .infinity,
+                minHeight: 0,
+                idealHeight: 100,
+                maxHeight: .infinity,
+                alignment: .center
+            )
+            .edgesIgnoringSafeArea(.all)
+            TotalRow(totalPrice: self.scannedCodes.map { $0.price }.reduce(0, +))
         }
-        .frame(minWidth: 0, idealWidth: 100, maxWidth: .infinity, minHeight: 0, idealHeight: 100, maxHeight: .infinity, alignment: .center)
-        .padding(.bottom, 80)
-        .background(Image("HomePageForExample").resizable())
-        .edgesIgnoringSafeArea(.all)
-        
     }
 
     var scannerSheet : some View {
@@ -125,39 +120,74 @@ struct ScanView: View {
             codeTypes: [.qr],
             completion: { result in
                 if case let .success(code) = result {
-                    self.scannedCodes.append(code)
+                    if let productData = convertToDictionary(text: code) {
+                        let purchaseData = Purchase(
+                            id: productData["id"] as! Int,
+                            imageURL: productData["imageURL"] as! String,
+                            name: productData["productName"] as! String,
+                            price: productData["price"] as! Int
+                        )
+                        self.scannedCodes.append(purchaseData)
+                    }
                     self.isPresentingScanner = false
                 }
             }
         )
     }
+    
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+}
+
+struct TotalRow: View {
+    var totalPrice: Int
+    
+    var body: some View{
+        Text("₩\(totalPrice)")
+    }
 }
 
 struct ListRow: View {
     var eachPurchase: Purchase
+    @State var stepperValue = 1
+    
     var body: some View{
         HStack{
-            Text(eachPurchase.name)
-            Spacer()
-            Image("신라면")
+            
+            Image(
+                uiImage: imageFromURL(url: eachPurchase.imageURL)
+            )
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(maxWidth: 40)
+                .frame(maxWidth: 40, alignment: .leading)
+            Text(eachPurchase.name).frame(width: 100, height: 50, alignment: .leading)
+            Text("₩\(eachPurchase.price*self.stepperValue)").frame(width: 70, height: 50, alignment: .leading)
+            
+            Spacer()
+            Stepper(value: $stepperValue, in: 1...50) {
+                Text("\(self.stepperValue)").frame(width: 50, height: 50, alignment: .trailing)
+            }
         }
     }
 }
 
-var products = [
-    Purchase(id: 1, name: "신라면", price: 900),
-    Purchase(id: 2, name: "오렌지주스", price: 2700),
-    Purchase(id: 3, name: "하리보젤리", price: 1000),
-    Purchase(id: 4, name: "저지방우유", price: 2200),
-    Purchase(id: 5, name: "새우깡", price: 900),
-]
+func imageFromURL(url: String) -> UIImage {
+    let url = URL(string: url)
+    let data = try! Data(contentsOf: url!)
+    return UIImage(data: data)!
+}
 
 struct PurchaseList_Previews: PreviewProvider {
     static var previews: some View {
-        ScanView(purchaseToList: products)
+        ScanView()
     }
 }
     
@@ -173,7 +203,7 @@ struct QRCodeScannerExampleView: View {
                         Image(systemName: "house")
                         Text("Home")
                     }.tag(1)
-                ScanView(purchaseToList: products)
+                ScanView()
                     .tabItem {
                         Image(systemName: "cart.badge.plus")
                         Text("scan")

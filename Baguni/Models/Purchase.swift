@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Purchase: Identifiable {
     var id: Int
+    var imageURL: String
     var name: String
     var price: Int
 }
