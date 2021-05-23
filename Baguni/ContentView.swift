@@ -160,22 +160,22 @@ struct ListRow: View {
     @State var stepperValue = 1
     
     var body: some View{
-        HStack{
-            
-            Image(
-                uiImage: imageFromURL(url: eachPurchase.imageURL)
-            )
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(maxWidth: 40, alignment: .leading)
-            Text(eachPurchase.name).frame(width: 100, height: 50, alignment: .leading)
-            Text("₩\(eachPurchase.price*self.stepperValue)").frame(width: 70, height: 50, alignment: .leading)
-            
-            Spacer()
-            Stepper(value: $stepperValue, in: 1...50) {
-                Text("\(self.stepperValue)").frame(width: 50, height: 50, alignment: .trailing)
+        GeometryReader { geometry in
+            HStack{
+                
+                Image(
+                    uiImage: imageFromURL(url: eachPurchase.imageURL)
+                )
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                .frame(maxWidth: geometry.size.width * 0.15, alignment: .leading)
+                Text(eachPurchase.name).frame(width: geometry.size.width * 0.25, alignment: .leading)
+                Text("₩\(eachPurchase.price*self.stepperValue)").frame(width: geometry.size.width * 0.25, alignment: .leading)
+                Stepper(value: $stepperValue, in: 1...50) {
+                    Text("\(self.stepperValue)")
+                }.frame(width: geometry.size.width * 0.35, alignment: .leading)
             }
-        }
+        }.padding(.leading, 10).padding(.trailing, 10)
     }
 }
 
