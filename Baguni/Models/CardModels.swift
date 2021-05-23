@@ -25,7 +25,7 @@ struct Card: Identifiable {
     }
 }
 
-struct Transaction {
+struct TransactionItem: Identifiable, Hashable{
     let id = UUID()
     let date: String
     let time: String

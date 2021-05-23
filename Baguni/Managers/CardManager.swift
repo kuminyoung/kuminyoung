@@ -43,4 +43,21 @@ class CardManager: ObservableObject {
         }
         return modifiedDate
     }
+    
+    var lastTransactionID = UUID()
+    
+    func  getTransaction(for date: String, number: String) -> [TransactionItem] {
+        var transaction: [TransactionItem] = []
+        
+        for transac in transaction {
+            if transac.date == date && transac.card == number{
+                transaction.append(transac)
+            }
+        }
+        
+        if transaction.count > 0 {
+            lastTransactionID = transaction.last!.id
+        }
+        return transaction
+    }
 }
