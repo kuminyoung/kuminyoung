@@ -8,41 +8,6 @@ import SwiftUI
 import CodeScanner
 import MapKit
 
-//struct NextView: View {
-//    @State var scannedCodes: String = ""
-//
-//    var body: some View {
-//       Text("\(scannedCodes)")
-//    }
-//}
-//
-//struct SecondView: View {
-//    @State var isPresentingScanner = false
-//    @State var scannedCodes: String?
-//    @State var state = true;
-//
-//    var body: some View {
-//        if self.scannedCodes != nil {
-//            Text("\(self.scannedCodes!)")
-//        }
-//        Text("").sheet(isPresented: $state, content: {
-//            self.scannerSheet
-//        })
-//    }
-//
-//    var scannerSheet : some View {
-//        CodeScannerView(
-//            codeTypes: [.qr],
-//            completion: { result in
-//                if case let .success(code) = result {
-//                    self.scannedCodes = code
-//                    self.isPresentingScanner = false
-//                }
-//            }
-//        )
-//    }
-//}
-
 struct MainView: View {
     
     let BankName = "카드이름:"
@@ -122,7 +87,14 @@ struct ScanView: View {
     @State var isPresentingScanner = false
     @State var scannedCodes: [String] = []
     
+    var purchaseToList: [Purchase]
+    
     var body: some View {
+        NavigationView{
+            List(purchaseToList){
+                product in ListRow(eachPurchase: product)
+            }.navigationBarTitle(Text("담은 상품"))
+        }
         VStack() {
             Spacer()
             ForEach(self.scannedCodes, id: \.self) { scannedCode in
@@ -145,6 +117,7 @@ struct ScanView: View {
         .padding(.bottom, 80)
         .background(Image("HomePageForExample").resizable())
         .edgesIgnoringSafeArea(.all)
+        
     }
 
     var scannerSheet : some View {
@@ -157,6 +130,34 @@ struct ScanView: View {
                 }
             }
         )
+    }
+}
+
+struct ListRow: View {
+    var eachPurchase: Purchase
+    var body: some View{
+        HStack{
+            Text(eachPurchase.name)
+            Spacer()
+            Image("신라면")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(maxWidth: 40)
+        }
+    }
+}
+
+var products = [
+    Purchase(id: 1, name: "신라면", price: 900),
+    Purchase(id: 2, name: "오렌지주스", price: 2700),
+    Purchase(id: 3, name: "하리보젤리", price: 1000),
+    Purchase(id: 4, name: "저지방우유", price: 2200),
+    Purchase(id: 5, name: "새우깡", price: 900),
+]
+
+struct PurchaseList_Previews: PreviewProvider {
+    static var previews: some View {
+        ScanView(purchaseToList: products)
     }
 }
     
@@ -172,7 +173,7 @@ struct QRCodeScannerExampleView: View {
                         Image(systemName: "house")
                         Text("Home")
                     }.tag(1)
-                ScanView()
+                ScanView(purchaseToList: products)
                     .tabItem {
                         Image(systemName: "cart.badge.plus")
                         Text("scan")
