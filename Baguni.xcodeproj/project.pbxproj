@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B35888BA265A44E4001DF748 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35888B9265A44E4001DF748 /* Purchase.swift */; };
 		B37FCD23263BD6C200BB8837 /* BaguniApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37FCD22263BD6C200BB8837 /* BaguniApp.swift */; };
 		B37FCD25263BD6C200BB8837 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37FCD24263BD6C200BB8837 /* ContentView.swift */; };
 		B37FCD27263BD6CA00BB8837 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B37FCD26263BD6CA00BB8837 /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B35888B9265A44E4001DF748 /* Purchase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
 		B37FCD1F263BD6C200BB8837 /* Baguni.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Baguni.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B37FCD22263BD6C200BB8837 /* BaguniApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaguniApp.swift; sourceTree = "<group>"; };
 		B37FCD24263BD6C200BB8837 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 		E21A2028264AEAEC0055FBCA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B35888B9265A44E4001DF748 /* Purchase.swift */,
 				E21A2029264AEAF90055FBCA /* Landmark.swift */,
 				E21A202B264AEB890055FBCA /* LandmarkAnnotation.swift */,
 				E2147E4C2658B613003720F7 /* CardModels.swift */,
@@ -225,6 +228,7 @@
 				E2147E572658F012003720F7 /* MenuHeaderView.swift in Sources */,
 				E21A202E264AF8540055FBCA /* PlaceListView.swift in Sources */,
 				B37FCD23263BD6C200BB8837 /* BaguniApp.swift in Sources */,
+				B35888BA265A44E4001DF748 /* Purchase.swift in Sources */,
 				E2147E4F2658B714003720F7 /* Data.swift in Sources */,
 				E2147E552658E3B0003720F7 /* CardView.swift in Sources */,
 				E21A202A264AEAF90055FBCA /* Landmark.swift in Sources */,
