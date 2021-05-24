@@ -8,9 +8,9 @@
 import Foundation
 
 enum CardType: String {
-    case Silver
-    case Gold
-    case Platinum
+    case KB국민은행
+    case 신한은행
+    case 우리은행
 }
 
 struct Card: Identifiable {

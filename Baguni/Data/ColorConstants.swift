@@ -14,8 +14,11 @@ struct ColorConstants{
     static let imageTint2 = Color.init(red: 120/255, green: 90/255, blue: 201/255)
     static let border = Color.init(red: 66/255, green: 38/255, blue: 135/255)
     
-    static let cardBottomLeft = Color.init(red: 107/255, green: 27/255, blue: 255/255)
-    static let cardTopRight = Color.init(red: 134/255, green: 64/255, blue: 255/255)
+    static let cardBottomLeft = Color.init(red: 252/255, green: 192/255, blue: 0/255)
+    static let cardTopRight = Color.init(red: 242/255, green: 143/255, blue: 0/255)
+    
+    static let cardBottomLeft2 = Color.init(red: 100/255, green: 165/255, blue: 147/255)
+    static let cardTopRight2 = Color.init(red: 52/255, green: 112/255, blue: 107/255)
     
     static let graphLine = Color.init(red: 249/255, green: 24/255, blue: 253/255)
     static let graphNumber = Color.init(red: 77/255, green: 49/255, blue: 162/255)
@@ -25,6 +28,11 @@ struct ColorConstants{
     
     static let cardBackground = LinearGradient(
         gradient: Gradient(colors: [cardTopRight, cardBottomLeft]),
+        startPoint: .trailing,
+        endPoint: .leading)
+    
+    static let cardBackground2 = LinearGradient(
+        gradient: Gradient(colors: [cardTopRight2, cardBottomLeft2]),
         startPoint: .topTrailing,
         endPoint: .bottomLeading)
     

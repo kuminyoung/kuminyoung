@@ -9,70 +9,19 @@ import CodeScanner
 import MapKit
 
 struct MainView: View {
-    
-    let BankName = "카드이름:"
-    let BankNum = "카드번호:"
-    let BankBal = "잔액:"
-    
-    @State var CName = "Kb Card"
-    @State var CNumber = "**** 1234 5678"
-    @State var CBalance = "$ 141,039"
-    
-    @State private var isCliked : Bool = false
+ 
     var body: some View {
-        NavigationView{
-            GeometryReader {
-                geometry in
-                ZStack{
-                    Image("HomePageForExample")
-                        .resizable()
-                        .ignoresSafeArea()
-                    
-                    VStack{
-                        
-                        Button(action: {
-                            self.animation()
-  
-                            
-                        }, label: {
-                            Image(isCliked ? "" : "")
-                                .resizable()
-                                .padding(.bottom, 0.0)
-                                .frame(width: 300, height: 200)
-                                .position(x: 200, y: 200)
-                                .offset(x: 0, y: isCliked ? 91 : 0)
-                        })
-                        
-                        Button(action: {
-                            self.animation()
-
-                        }, label: {
-                            Image(isCliked ? "" : "")
-                                .resizable()
-                                .frame(width: 300, height: 200)
-                                .position(x: 200, y: 10)
-                                .offset(x: 0, y: isCliked ? -91 : 0)
-                        })
-                        HStack{
-                            Text("")
-                            Text("")
-                        }
-                        HStack{
-                            Text("")
-                            Text("")
-                        }
-                        HStack{
-                            Text("")
-                            Text("")
-                        }
-                    }
-                }
-            }
+        ZStack {
+            
+            Rectangle()
+                .fill(ColorConstants.cardBackground)
+            
+            RoundedRectangle(cornerRadius: 50)
+                .fill(Color.white)
+                .padding(.top, 170)
+            
         }
-        .navigationTitle("Payment")
-    }
-    func animation(){
-        self.isCliked.toggle()
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
@@ -261,24 +210,28 @@ struct LocationView: View {
     }
     
     var body: some View {
+        
         ZStack(alignment: .top){
             
-            MapView(landmarks: landmarks)
-            
 
-            TextField("Search", text: $search, onEditingChanged:{ _ in } )
-            {
-                // commit
-                self.getNearByLandmarks()
-            }.textFieldStyle(RoundedBorderTextFieldStyle())
-            .padding()
-            .offset(y: 44)
-            
-            PlaceListView(landmarks: self.landmarks) {
-                //on tap
-                self.tapped.toggle()
-            }.animation(.spring())
-            .offset(y:calculateOffset())
+                
+                MapView(landmarks: landmarks)
+                
+                TextField("Search", text: $search, onEditingChanged:{ _ in } )
+                {
+                    // commit
+                    self.getNearByLandmarks()
+                }.textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+                .offset(y: 44)
+                
+                PlaceListView(landmarks: self.landmarks) {
+                    //on tap
+                    self.tapped.toggle()
+                }.animation(.spring())
+                .offset(y:calculateOffset())
+
+
         }
     }
 }
@@ -291,28 +244,35 @@ struct PaymentView: View {
         
         ZStack {
             Rectangle()
-                .fill(ColorConstants.primary)
+                .fill(ColorConstants.cardBackground)
+            
+            RoundedRectangle(cornerRadius: 50)
+                .fill(Color.white)
+                .padding(.top, 170)
             
             VStack {
                 TopBarView()
-                PagerView(pageCount: cards.count, currentIndex: $currentPage) {
-                    ForEach(cards) { card in
-                        CardView(card: card)
+                VStack{
+                    PagerView(pageCount: cards.count, currentIndex: $currentPage) {
+                        ForEach(cards) { card in
+                            CardView(card: card)
+                        }
+                        
                     }
-                }
-                .frame(height: 240)
-                MenuHeaderView(title: "Transactions", imageName: "arrow.up.arrow.down")
-                
-                TransactionListView(currentIndex: $currentPage, cardManager: cardManager)
-                
-                Spacer()
+                    .frame(height: 240)
+                    MenuHeaderView(title: "구매내역", imageName: "chevron.down")
+                    
+                    TransactionListView(currentIndex: $currentPage, cardManager: cardManager)
+                    
+                    Spacer()
+               
+                }.padding(.top, 80)
             }
         }
         .edgesIgnoringSafeArea(.all)
-
     }
+        
 }
-
 
 struct TransactionListView: View {
     @Binding var currentIndex: Int
@@ -324,12 +284,13 @@ struct TransactionListView: View {
                     ListHeader(title: cardManager.getModifiedDate(date: date))
                     ForEach(getTransactions(date: date), id: \.self) { transaction in
                         TransactionListRow(transaction: transaction, isLast: cardManager.lastTransactionID == transaction.id)
+                        
                     }
                 }
             }
         }
-
     }
+    
     func getTransactions(date: String) -> [TransactionItem] {
         return cardManager.getTransaction(for: date, number: cards[currentIndex].number)
     }
@@ -345,12 +306,14 @@ struct ListHeader: View {
         HStack {
             Text(title)
                 .font(.caption)
-                .foregroundColor(ColorConstants.secondary)
+                .foregroundColor(.black)
                 .padding(.leading, 20)
             Spacer()
         }
     }
 }
+
+//ㅅㅂㅅㅂㅅㅂㅆㅂㅅㅂㅅㅂㅅㅂㅅㅂㅅㅂㅅㅂㅅㅂㅅ왜안돼ㄸㅗㅅㅂㅅㅃㅅㅂ
 
 struct TransactionListRow: View {
     let transaction: TransactionItem
@@ -378,41 +341,72 @@ struct TransactionListRow: View {
                 Spacer()
                 
                 VStack(alignment: .trailing) {
-                    Text("- \(String(transaction.amount)) KRW")
+                    Text("- \(String(format: "%.2f", transaction.amount)) USD")
                         .foregroundColor(.white)
                     Text(transaction.time)
                         .font(.caption)
                         .foregroundColor(ColorConstants.secondary)
                 }
             }
-            .padding(.leading, 20)
-            .padding(.bottom, 20)
+            
             
             Divider()
                 .background(ColorConstants.secondary)
-                .opacity(isLast ? 0.0: 1.0)
-                .padding(.leading, 80)
+                .opacity(isLast ? 0.0 : 1.0)
+                .padding(.leading, 60)
                 .padding(.bottom, 8)
         }
+        .padding(.leading, 20)
+        .padding(.trailing, 20)
     }
 }
+
+
+
 
 struct TopBarView: View {
     var body: some View {
         HStack {
             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
                 Image(systemName: "line.horizontal.3")
-                    .padding(.all, 20)
+                    .padding(.all, 10)
             })
             
-            Text("HOME")
+            Text("PAYMENT")
+                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                .bold()
             
             Spacer()
             
+// 서치 바에 넣을 버튼
+//            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+//                Image(systemName: "magnifyingglass")
+//                    .padding(.all, 20)
+//            })
+        }
+        .foregroundColor(.white)
+        .padding(.top, 64)
+        .padding(.bottom, 20)
+        .padding(.leading, 20)
+        .padding(.trailing, 20)
+
+    }
+}
+
+struct HomeTopBarView: View {
+    var body: some View {
+        HStack {
             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                Image(systemName: "magnifyingglass")
-                    .padding(.all, 20)
+                Image(systemName: "line.horizontal.3")
+                    .padding(.all, 10)
             })
+            
+            Text("Baguni Cart")
+                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                .bold()
+            
+            Spacer()
+            
         }
         .foregroundColor(.white)
         .padding(.top, 64)

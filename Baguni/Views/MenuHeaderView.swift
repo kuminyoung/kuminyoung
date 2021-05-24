@@ -23,7 +23,7 @@ struct MenuHeaderView: View {
                     .padding(.all, 20)
             })
         }
-        .foregroundColor(.white)
+        .foregroundColor(.black)
         .padding(.leading, 20)
         .padding(.trailing, 20)
 

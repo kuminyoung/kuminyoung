@@ -9,9 +9,9 @@ import Foundation
 
 
 let cards = [
-    Card(number: "1223455622115610", type: CardType.Platinum, company: "Visa"),
-    Card(number: "1223455622114311", type: CardType.Gold, company: "Visa"),
-    Card(number: "1223455622119521", type: CardType.Silver, company: "Visa")
+    Card(number: "1223455622115610", type: CardType.우리은행, company: "Visa"),
+    Card(number: "1223455622114311", type: CardType.신한은행, company: "Visa"),
+    Card(number: "1223455622119521", type: CardType.KB국민은행, company: "Visa")
 ]
 
 let transactions = [
