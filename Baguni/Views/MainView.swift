@@ -23,7 +23,7 @@ struct MainView: View {
                             .padding(.all, 10)
                     })
                     
-                    Text("BAGUNI CART")
+                    Text("BAGUNI")
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         .bold()
                     

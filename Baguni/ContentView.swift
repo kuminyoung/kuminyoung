@@ -57,37 +57,50 @@ struct ScanView: View {
     @State var scannedCodes: [Purchase] = []
     
     var body: some View {
-        VStack() {
+        ZStack {
+            Rectangle()
+                .fill(ColorConstants.cardBackground)
+            
+            RoundedRectangle(cornerRadius: 50)
+                .fill(Color.white)
+                .padding(.top, 160)
+            
             VStack {
-                VStack {
-                    NavigationView{
-                        List(scannedCodes){
-                            product in ListRow(eachPurchase: product)
-                        }.navigationBarTitle(Text("담은 상품"))
+                CartTopBarView()
+        
+            VStack() {
+                GeometryReader { geometry in
+                    VStack {
+                        VStack {
+                            List(scannedCodes){
+                                product in ListRow(eachPurchase: product)
+                            }
+                        }.frame(width: .infinity, height: 480, alignment: .leading)
+                        Button(action: {
+                            self.isPresentingScanner = true
+                        }) {
+                            Image(systemName: "camera.fill").resizable()
+                        }
+                        .frame(width: 55, height: 45, alignment: .leading)
+                        .sheet(isPresented: $isPresentingScanner) {
+                            self.scannerSheet
+                        }
+                        TotalRow(totalPrice: self.scannedCodes.map { $0.price }.reduce(0, +)).font(.system(size: 25))
                     }
+                    .frame(
+                        minWidth: 0,
+                        idealWidth: 100,
+                        maxWidth: .infinity,
+                        minHeight: 0,
+                        idealHeight: 100,
+                        maxHeight: .infinity,
+                        alignment: .leading
+                    )
+                    .edgesIgnoringSafeArea(.all)
                 }
-                Button(action: {
-                    self.isPresentingScanner = true
-                }) {
-                    Image(systemName: "camera.fill").resizable()
-                }
-                .frame(width: 45, height: 35, alignment: .center)
-                .sheet(isPresented: $isPresentingScanner) {
-                    self.scannerSheet
                 }
             }
-            .frame(
-                minWidth: 0,
-                idealWidth: 100,
-                maxWidth: .infinity,
-                minHeight: 0,
-                idealHeight: 100,
-                maxHeight: .infinity,
-                alignment: .center
-            )
-            .edgesIgnoringSafeArea(.all)
-            TotalRow(totalPrice: self.scannedCodes.map { $0.price }.reduce(0, +))
-        }
+        }.edgesIgnoringSafeArea(.all)
     }
 
     var scannerSheet : some View {
@@ -162,7 +175,10 @@ func imageFromURL(url: String) -> UIImage {
 
 struct PurchaseList_Previews: PreviewProvider {
     static var previews: some View {
-        ScanView()
+        Group {
+            ScanView()
+            ScanView()
+        }
     }
 }
     
@@ -367,6 +383,7 @@ struct ListHeader: View {
 }
 
 //ㅅㅂㅅㅂㅅㅂㅆㅂㅅㅂㅅㅂㅅㅂㅅㅂㅅㅂㅅㅂㅅㅂㅅ왜안돼ㄸㅗㅅㅂㅅㅃㅅㅂ
+//ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
 
 struct TransactionListRow: View {
     let transaction: TransactionItem
@@ -454,7 +471,31 @@ struct HomeTopBarView: View {
                     .padding(.all, 10)
             })
             
-            Text("Baguni Cart")
+            Text("Baguni")
+                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                .bold()
+            
+            Spacer()
+            
+        }
+        .foregroundColor(.white)
+        .padding(.top, 64)
+        .padding(.bottom, 20)
+        .padding(.leading, 20)
+        .padding(.trailing, 20)
+
+    }
+}
+
+struct CartTopBarView: View {
+    var body: some View {
+        HStack {
+            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Image(systemName: "line.horizontal.3")
+                    .padding(.all, 10)
+            })
+            
+            Text("CART")
                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 .bold()
             
