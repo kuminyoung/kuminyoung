@@ -25,6 +25,8 @@
 		E21A202A264AEAF90055FBCA /* Landmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21A2029264AEAF90055FBCA /* Landmark.swift */; };
 		E21A202C264AEB890055FBCA /* LandmarkAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21A202B264AEB890055FBCA /* LandmarkAnnotation.swift */; };
 		E21A202E264AF8540055FBCA /* PlaceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21A202D264AF8540055FBCA /* PlaceListView.swift */; };
+		E23AB0D5265D3056008E95A3 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AB0D4265D3056008E95A3 /* MainView.swift */; };
+		E23AB0D7265D30B7008E95A3 /* ProductData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AB0D6265D30B7008E95A3 /* ProductData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +49,8 @@
 		E21A2029264AEAF90055FBCA /* Landmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmark.swift; sourceTree = "<group>"; };
 		E21A202B264AEB890055FBCA /* LandmarkAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkAnnotation.swift; sourceTree = "<group>"; };
 		E21A202D264AF8540055FBCA /* PlaceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListView.swift; sourceTree = "<group>"; };
+		E23AB0D4265D3056008E95A3 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		E23AB0D6265D30B7008E95A3 /* ProductData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,7 @@
 			children = (
 				E2147E4E2658B714003720F7 /* Data.swift */,
 				E2147E502658DB22003720F7 /* ColorConstants.swift */,
+				E23AB0D6265D30B7008E95A3 /* ProductData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 				E21A202D264AF8540055FBCA /* PlaceListView.swift */,
 				E2147E522658DEB7003720F7 /* PagerView.swift */,
 				E2147E562658F012003720F7 /* MenuHeaderView.swift */,
+				E23AB0D4265D3056008E95A3 /* MainView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -226,8 +232,10 @@
 				E21A202C264AEB890055FBCA /* LandmarkAnnotation.swift in Sources */,
 				E21A2024264AC8A90055FBCA /* MapView.swift in Sources */,
 				E2147E572658F012003720F7 /* MenuHeaderView.swift in Sources */,
+				E23AB0D5265D3056008E95A3 /* MainView.swift in Sources */,
 				E21A202E264AF8540055FBCA /* PlaceListView.swift in Sources */,
 				B37FCD23263BD6C200BB8837 /* BaguniApp.swift in Sources */,
+				E23AB0D7265D30B7008E95A3 /* ProductData.swift in Sources */,
 				B35888BA265A44E4001DF748 /* Purchase.swift in Sources */,
 				E2147E4F2658B714003720F7 /* Data.swift in Sources */,
 				E2147E552658E3B0003720F7 /* CardView.swift in Sources */,

@@ -8,25 +8,51 @@ import SwiftUI
 import CodeScanner
 import MapKit
 
-struct MainView: View {
- 
+
+
+
+struct SearchBar: View {
+    @Binding var text: String
+    @State private var isEditing = false
     var body: some View {
-        ZStack {
-            
-            Rectangle()
-                .fill(ColorConstants.cardBackground)
-            
-            RoundedRectangle(cornerRadius: 50)
-                .fill(Color.white)
-                .padding(.top, 170)
-            
+        HStack {
+            TextField("Search here", text: $text)
+                .padding(13)
+                .padding(.horizontal, 10)
+                .background(Color(.white))
+                .foregroundColor(Color(.black))
+                .cornerRadius(40)
+                .overlay(
+                    HStack{
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(ColorConstants.cardTopRight)
+                            .frame(minWidth: 0, maxWidth:  .infinity, alignment: .trailing)
+                            .padding(.trailing, 5)
+                        
+                        if isEditing {
+                            Button(action: {
+                                self.text = ""
+                            }, label: {
+                                
+                                Image(systemName: "multiply.circle.fill")
+                                    .foregroundColor(Color(.systemGray4))
+                                    .padding(.trailing, 10)
+                                
+                            })
+                        }
+                    }
+                ).onTapGesture {
+                    self.isEditing = true
+                }
+                .padding(.trailing, 20)
+                .padding(.leading, 20)
         }
-        .edgesIgnoringSafeArea(.all)
     }
 }
 
 
 struct ScanView: View {
+    @State var text = ""
     @State var isPresentingScanner = false
     @State var scannedCodes: [Purchase] = []
     
@@ -211,27 +237,54 @@ struct LocationView: View {
     
     var body: some View {
         
-        ZStack(alignment: .top){
-            
+        ZStack {
 
+            VStack{
+                Rectangle()
+                    .fill(ColorConstants.cardBackground)
+                    .padding(.top, -100)
                 
-                MapView(landmarks: landmarks)
+                ZStack(alignment: .top){
+                    
+                    
+                        MapView(landmarks: landmarks)
+                        
+                        TextField("Search", text: $search, onEditingChanged:{ _ in } )
+                        {
+                            // commit
+                            self.getNearByLandmarks()
+                        }
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.top, -120)
+                        .offset(y: 44)
+                        
+                        PlaceListView(landmarks: self.landmarks) {
+                            //on tap
+                            self.tapped.toggle()
+                        }
+                        .animation(.spring())
+                        .offset(y:calculateOffset())
+                    
+                    HStack {
+                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                            Image(systemName: "line.horizontal.3")
+                                .padding(.all, 10)
+                        })
+                        
+                        Text("LOCATION")
+                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                            .bold()
+                        
+                        Spacer()
+                    }
+                    .foregroundColor(.white)
+                    .padding(.top, -144)
+                    .padding(.leading, 20)
+                    .padding(.trailing, 20)
+                }
+                .padding(.top, -200)
                 
-                TextField("Search", text: $search, onEditingChanged:{ _ in } )
-                {
-                    // commit
-                    self.getNearByLandmarks()
-                }.textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-                .offset(y: 44)
-                
-                PlaceListView(landmarks: self.landmarks) {
-                    //on tap
-                    self.tapped.toggle()
-                }.animation(.spring())
-                .offset(y:calculateOffset())
-
-
+            }
         }
     }
 }
@@ -248,7 +301,7 @@ struct PaymentView: View {
             
             RoundedRectangle(cornerRadius: 50)
                 .fill(Color.white)
-                .padding(.top, 170)
+                .padding(.top, 160)
             
             VStack {
                 TopBarView()
