@@ -75,17 +75,17 @@ struct ScanView: View {
                             List(scannedCodes){
                                 product in ListRow(eachPurchase: product)
                             }
-                        }.frame(width: .infinity, height: 480, alignment: .leading)
+                        }.frame(width: .infinity, height: 400, alignment: .leading)
                         Button(action: {
                             self.isPresentingScanner = true
                         }) {
                             Image(systemName: "camera.fill").resizable()
                         }
-                        .frame(width: 55, height: 45, alignment: .leading)
+                        .frame(width: 55, height: 45, alignment: .trailing)
                         .sheet(isPresented: $isPresentingScanner) {
                             self.scannerSheet
                         }
-                        TotalRow(totalPrice: self.scannedCodes.map { $0.price }.reduce(0, +)).font(.system(size: 25))
+                        TotalRow(totalPrice: self.scannedCodes.map { $0.price }.reduce(0, +)).font(.system(size: 25)).frame(alignment: .trailing)
                     }
                     .frame(
                         minWidth: 0,
