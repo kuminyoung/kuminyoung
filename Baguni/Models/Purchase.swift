@@ -12,4 +12,6 @@ struct Purchase: Identifiable {
     var imageURL: String
     var name: String
     var price: Int
+    var priceAmount: Int
+    var quantity: Int
 }

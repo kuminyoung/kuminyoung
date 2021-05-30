@@ -51,6 +51,58 @@ struct SearchBar: View {
 }
 
 
+struct CartListView: View {
+    @Binding var scannedCodes: [Purchase]
+//    @State var scannedCodes[index].quantity = 1
+    
+    var body: some View {
+        VStack {
+            List {
+                ForEach(Array(self.scannedCodes.enumerated()), id: \.0) { index, product in
+                    GeometryReader { geometry in
+                        HStack{
+                            Image(
+                                uiImage: imageFromURL(url: product.imageURL)
+                            )
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                            .frame(maxWidth: geometry.size.width * 0.15, alignment: .leading)
+                            Text(product.name).frame(width: geometry.size.width * 0.25, alignment: .leading)
+                            Text("₩\(product.priceAmount)").frame(width: geometry.size.width * 0.25, alignment: .leading)
+                            Stepper(
+                                onIncrement: {
+                                    self.scannedCodes[index].quantity += 1
+                                    self.scannedCodes[index].priceAmount = self.scannedCodes[index].price *  self.scannedCodes[index].quantity
+                                },
+                                onDecrement: {
+                                    if (self.scannedCodes[index].quantity > 1) {
+                                        self.scannedCodes[index].quantity -= 1
+                                        self.scannedCodes[index].priceAmount = self.scannedCodes[index].price * self.scannedCodes[index].quantity
+                                    }
+                                },
+                                label: {
+                                    Text("\(self.scannedCodes[index].quantity)")
+                                }).frame(width: geometry.size.width * 0.35, alignment: .leading)
+                        }
+                    }
+                }.onDelete(perform: delete)
+            }
+//            List(self.scannedCodes){
+//                product in
+//                }.padding(.leading, 10).padding(.trailing, 10)
+//
+//                ListRow(eachPurchase: product)
+//            }
+        }.frame(width: .infinity, height: 400, alignment: .leading)
+    }
+    func delete(at index: IndexSet) {
+        if let first = index.first {
+            self.scannedCodes.remove(at: first)
+        }
+    }
+}
+
+
 struct ScanView: View {
     @State var text = ""
     @State var isPresentingScanner = false
@@ -71,11 +123,8 @@ struct ScanView: View {
             VStack() {
                 GeometryReader { geometry in
                     VStack {
-                        VStack {
-                            List(scannedCodes){
-                                product in ListRow(eachPurchase: product)
-                            }
-                        }.frame(width: .infinity, height: 400, alignment: .leading)
+                        CartListView(scannedCodes: $scannedCodes)
+                        TotalRow(totalPrice: self.scannedCodes.map { $0.priceAmount }.reduce(0, +)).font(.system(size: 25)).frame(alignment: .trailing)
                         Button(action: {
                             self.isPresentingScanner = true
                         }) {
@@ -85,7 +134,9 @@ struct ScanView: View {
                         .sheet(isPresented: $isPresentingScanner) {
                             self.scannerSheet
                         }
-                        TotalRow(totalPrice: self.scannedCodes.map { $0.price }.reduce(0, +)).font(.system(size: 25)).frame(alignment: .trailing)
+                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                            Text("Pay now").foregroundColor(.orange)
+                        })
                     }
                     .frame(
                         minWidth: 0,
@@ -113,7 +164,9 @@ struct ScanView: View {
                             id: productData["id"] as! Int,
                             imageURL: productData["imageURL"] as! String,
                             name: productData["productName"] as! String,
-                            price: productData["price"] as! Int
+                            price: productData["price"] as! Int,
+                            priceAmount: productData["price"] as! Int,
+                            quantity: 1
                         )
                         self.scannedCodes.append(purchaseData)
                     }
@@ -139,33 +192,18 @@ struct TotalRow: View {
     var totalPrice: Int
     
     var body: some View{
-        Text("₩\(totalPrice)")
+        Text("₩\(totalPrice)").frame(alignment: .trailing)
     }
 }
 
-struct ListRow: View {
-    var eachPurchase: Purchase
-    @State var stepperValue = 1
-    
-    var body: some View{
-        GeometryReader { geometry in
-            HStack{
-                
-                Image(
-                    uiImage: imageFromURL(url: eachPurchase.imageURL)
-                )
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                .frame(maxWidth: geometry.size.width * 0.15, alignment: .leading)
-                Text(eachPurchase.name).frame(width: geometry.size.width * 0.25, alignment: .leading)
-                Text("₩\(eachPurchase.price*self.stepperValue)").frame(width: geometry.size.width * 0.25, alignment: .leading)
-                Stepper(value: $stepperValue, in: 1...50) {
-                    Text("\(self.stepperValue)")
-                }.frame(width: geometry.size.width * 0.35, alignment: .leading)
-            }
-        }.padding(.leading, 10).padding(.trailing, 10)
-    }
-}
+//struct ListRow: View {
+//    var eachPurchase: Purchase
+//    @State var stepperValue = 1
+//
+//    var body: some View{
+//
+//    }
+//}
 
 func imageFromURL(url: String) -> UIImage {
     let url = URL(string: url)
