@@ -103,7 +103,94 @@ struct CartListView: View {
 }
 
 
+//struct ScanView: View {
+//    @State var text = ""
+//    @State var isPresentingScanner = false
+//    @State var scannedCodes: [Purchase] = []
+//
+//    var body: some View {
+//        ZStack {
+//            Rectangle()
+//                .fill(ColorConstants.cardBackground)
+//
+//            RoundedRectangle(cornerRadius: 50)
+//                .fill(Color.white)
+//                .padding(.top, 160)
+//
+//            VStack {
+//                CartTopBarView()
+//
+//            VStack() {
+//                GeometryReader { geometry in
+//                    VStack {
+//                        CartListView(scannedCodes: $scannedCodes)
+//                        TotalRow(totalPrice: self.scannedCodes.map { $0.priceAmount }.reduce(0, +)).font(.system(size: 25)).frame(alignment: .trailing)
+//                        Button(action: {
+//                            self.isPresentingScanner = true
+//                        }) {
+//                            Image(systemName: "camera.fill").resizable().foregroundColor(.orange)
+//
+//                        }
+//                        .frame(width: 55, height: 45, alignment: .trailing)
+//                        .sheet(isPresented: $isPresentingScanner) {
+//                            self.scannerSheet
+//                        }
+//                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+//                            Text("Pay now").foregroundColor(.orange)
+//                        })
+//                    }
+//                    .frame(
+//                        minWidth: 0,
+//                        idealWidth: 100,
+//                        maxWidth: .infinity,
+//                        minHeight: 0,
+//                        idealHeight: 100,
+//                        maxHeight: .infinity,
+//                        alignment: .leading
+//                    )
+//                    .edgesIgnoringSafeArea(.all)
+//                }
+//                }
+//            }
+//        }.edgesIgnoringSafeArea(.all)
+//    }
+//
+//    var scannerSheet : some View {
+//        CodeScannerView(
+//            codeTypes: [.qr],
+//            completion: { result in
+//                if case let .success(code) = result {
+//                    if let productData = convertToDictionary(text: code) {
+//                        let purchaseData = Purchase(
+//                            id: productData["id"] as! Int,
+//                            imageURL: productData["imageURL"] as! String,
+//                            name: productData["productName"] as! String,
+//                            price: productData["price"] as! Int,
+//                            priceAmount: productData["price"] as! Int,
+//                            quantity: 1
+//                        )
+//                        self.scannedCodes.append(purchaseData)
+//                    }
+//                    self.isPresentingScanner = false
+//                }
+//            }
+//        )
+//    }
+//
+//    func convertToDictionary(text: String) -> [String: Any]? {
+//        if let data = text.data(using: .utf8) {
+//            do {
+//                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//        }
+//        return nil
+//    }
+//}
+
 struct ScanView: View {
+    @State var show = false
     @State var text = ""
     @State var isPresentingScanner = false
     @State var scannedCodes: [Purchase] = []
@@ -119,24 +206,30 @@ struct ScanView: View {
             
             VStack {
                 CartTopBarView()
-        
-            VStack() {
-                GeometryReader { geometry in
-                    VStack {
-                        CartListView(scannedCodes: $scannedCodes)
-                        TotalRow(totalPrice: self.scannedCodes.map { $0.priceAmount }.reduce(0, +)).font(.system(size: 25)).frame(alignment: .trailing)
-                        Button(action: {
-                            self.isPresentingScanner = true
-                        }) {
-                            Image(systemName: "camera.fill").resizable()
-                        }
-                        .frame(width: 55, height: 45, alignment: .trailing)
-                        .sheet(isPresented: $isPresentingScanner) {
-                            self.scannerSheet
-                        }
-                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                            Text("Pay now").foregroundColor(.orange)
-                        })
+                
+                VStack() {
+                    GeometryReader { geometry in
+                        VStack {
+                            CartListView(scannedCodes: $scannedCodes)
+                            TotalRow(totalPrice: self.scannedCodes.map { $0.priceAmount }.reduce(0, +)).font(.system(size: 25)).frame(alignment: .trailing)
+                            Button(action: {
+                                self.isPresentingScanner = true
+                            }) {
+                                Image(systemName: "camera.fill").resizable().foregroundColor(.orange)
+                                
+                            }
+                            .frame(width: 55, height: 45, alignment: .trailing)
+                            .sheet(isPresented: $isPresentingScanner) {
+                                self.scannerSheet
+                            }
+                            
+                            
+                            Button(action: {
+                                withAnimation{self.show.toggle()}
+                            }){
+                                Text("결제하기").foregroundColor(.orange)
+                            }
+
                     }
                     .frame(
                         minWidth: 0,
@@ -151,6 +244,25 @@ struct ScanView: View {
                 }
                 }
             }
+            
+            if self.show{
+                GeometryReader{_ in
+                    PayNow(totalPrice: self.scannedCodes.map { $0.priceAmount }.reduce(0, +)).font(.system(size: 25)).frame(alignment: .center)
+                        .padding(.all, 80)
+                        .padding(.top, 200)
+
+                }.background(
+                    Color.black.opacity(0.65)
+                        .edgesIgnoringSafeArea(.all)
+                        .onTapGesture {
+                            withAnimation{
+                                self.show.toggle()
+                                
+                            }
+                        }
+                )
+            }
+
         }.edgesIgnoringSafeArea(.all)
     }
 
@@ -189,10 +301,74 @@ struct ScanView: View {
 }
 
 struct TotalRow: View {
+    
     var totalPrice: Int
     
     var body: some View{
         Text("₩\(totalPrice)").frame(alignment: .trailing)
+    }
+}
+
+struct PayNow: View {
+    @State var show = true
+    var totalPrice: Int
+    var body: some View {
+
+        ZStack{
+            Image("Receipt")
+                .resizable()
+
+            VStack{
+                Text("결제하시겠습니까?")
+                    .bold()
+                    .padding()
+                Text("₩\(totalPrice)").frame(alignment: .center)
+                    .padding()
+               
+
+                VStack(alignment: .leading){
+                    Button(action: {
+                        withAnimation{self.show.toggle()}
+                        
+                    }){
+                        Image(systemName: "cart.badge.plus")
+                            .foregroundColor(Color(.systemOrange))
+                        Text("더 담으러 가기")
+                            .font(.system(size: 20))
+                            .foregroundColor(.orange)
+                        
+                        
+                        
+                    }
+                    .padding()
+                    
+                    Button(action: {
+                        
+                    }){
+                        Image(systemName: "creditcard")
+                            .foregroundColor(Color(.systemOrange))
+                        Text("결제하기")
+                            .foregroundColor(.orange)
+                            .font(.system(size: 20))
+                    }
+                    .padding()
+                    
+                    
+
+                }
+
+
+            }
+            
+
+        }
+//        .frame(width: 220, height: 300, alignment: .center)
+        .padding(.bottom, 80)
+//        .background(Color.white)
+//        .cornerRadius(30)
+
+
+
     }
 }
 
@@ -420,8 +596,7 @@ struct ListHeader: View {
     }
 }
 
-//ㅅㅂㅅㅂㅅㅂㅆㅂㅅㅂㅅㅂㅅㅂㅅㅂㅅㅂㅅㅂㅅㅂㅅ왜안돼ㄸㅗㅅㅂㅅㅃㅅㅂ
-//ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+
 
 struct TransactionListRow: View {
     let transaction: TransactionItem

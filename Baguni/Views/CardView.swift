@@ -2,21 +2,21 @@
 //  CardView.swift
 //  Baguni
 //
-//  Created by 윤영서 on 2021/05/22.
+//  Created by 윤영서 on 2021/06/02.
 //
 
 import SwiftUI
 
 struct CardView: View {
-    let card: Card 
+    let card: Card
     var body: some View {
-        ZStack{
+        ZStack {
             RoundedRectangle(cornerRadius: 40)
                 .fill(ColorConstants.cardBackground2)
             
-            VStack{
-                HStack{
-                    VStack(alignment: .leading){
+            VStack {
+                HStack {
+                    VStack(alignment: .leading) {
                         Text(card.company.uppercased())
                             .font(.system(size: 14))
                             .bold()
@@ -36,18 +36,20 @@ struct CardView: View {
                 
                 Spacer()
                 
-                HStack{
+                HStack {
                     ForEach(0..<3) { i in
                         Text("****")
                             .kerning(3.0)
                         
                         Spacer()
                     }
+                    
                     Text(card.getLastForDigit())
                         .kerning(3.0)
                 }
             }
             .padding(.all, 40)
+            
         }
         .foregroundColor(.white)
         .padding(.leading, 20)
