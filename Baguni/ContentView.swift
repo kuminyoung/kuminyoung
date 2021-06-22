@@ -249,7 +249,7 @@ struct ScanView: View {
                 GeometryReader{_ in
                     PayNow(totalPrice: self.scannedCodes.map { $0.priceAmount }.reduce(0, +)).font(.system(size: 25)).frame(alignment: .center)
                         .padding(.all, 80)
-                        .padding(.top, 200)
+                        .padding(.top, 180)
 
                 }.background(
                     Color.black.opacity(0.65)
@@ -328,8 +328,7 @@ struct PayNow: View {
 
                 VStack(alignment: .leading){
                     Button(action: {
-                        withAnimation{self.show.toggle()}
-                        
+//                        withAnimation{self.show.toggle()}
                     }){
                         Image(systemName: "cart.badge.plus")
                             .foregroundColor(Color(.systemOrange))
@@ -356,6 +355,7 @@ struct PayNow: View {
                     
 
                 }
+                
 
 
             }
@@ -367,10 +367,10 @@ struct PayNow: View {
 //        .background(Color.white)
 //        .cornerRadius(30)
 
-
-
     }
 }
+
+
 
 //struct ListRow: View {
 //    var eachPurchase: Purchase
