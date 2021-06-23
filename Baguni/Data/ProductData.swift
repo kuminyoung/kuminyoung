@@ -19,7 +19,7 @@ struct MyData: Identifiable {
 
 var mData = [
     MyData(Pimage: "Banana", title: "델몬트) 바나나", subtitle: "4,300원", place: "B1층 신선식품 코너"),
-    MyData(Pimage: "Dyson", title: "다이슨) V6", subtitle: "464,650원", place: "2층 가전제품 코너"),
+    MyData(Pimage: "Dyson_V6", title: "다이슨) V6", subtitle: "464,650원", place: "2층 가전제품 코너"),
     MyData(Pimage: "WoodenBowl", title: "나무 그릇 세트", subtitle: "11,200원", place: "1층 주방물품 코너"),
     MyData(Pimage: "Gyoja", title: "비비고) 왕교자", subtitle: "3,180원", place: "B1층 냉동식품 코너"),
     MyData(Pimage: "appleMango", title: "애플망고", subtitle: "4,130원", place: "B1층 신선식품 코너"),
